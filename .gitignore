@@ -1,0 +1,8 @@
+/.gradle/
+/bin/
+/data/raw/
+data/*.v*/
+TRASH/
+.DS_Store
+/build/
+example.zip

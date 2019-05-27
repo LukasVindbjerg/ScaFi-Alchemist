@@ -1,0 +1,51 @@
+incarnation: protelis
+
+seeds:
+  scenario: 12345
+  simulation: 12345
+
+network-model:
+  type: EuclideanDistance
+  parameters: [1]
+
+pools:
+  - pool: &program
+    - time-distribution:
+        type: RandomDiracComb
+        parameters: [1, 2]
+      type: Event
+      actions:
+        - type: RunProtelisProgram
+          parameters: [prova, 2]
+    - program: send
+  - pool: &vibrate
+    - time-distribution: 5
+      type: Event
+      actions:
+        - type: BrownianMove
+          parameters: [0.03]
+  - pool: &move
+    - time-distribution: 5
+      type: Event
+      actions:
+        - type: MoveToTarget
+          parameters: [target, 0.1]
+
+displacements:
+  - in:
+      type: Point
+      parameters: [0,0]
+    programs:
+      - *program
+  - in:
+      type: Circle
+      parameters: [50, 0, 0, 2]
+    programs:
+      - *program
+      - *vibrate
+  - in:
+      type: Rectangle
+      parameters: [100, -3, -3, 6, 6]
+    programs:
+      - *program
+      - *move

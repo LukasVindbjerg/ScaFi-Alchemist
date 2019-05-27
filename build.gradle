@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+eclipse {
+    classpath {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+dependencies {
+    compile 'it.unibo.alchemist:alchemist:7.0.2'
+}
+
+task testSharedTimer(type: JavaExec){
+    classpath 'src/main/resources'
+    classpath sourceSets.main.runtimeClasspath
+    main = 'it.unibo.alchemist.Alchemist'
+    args(
+        "-y", "src/main/resources/prova.yml",
+        "-g", "src/main/resources/prova.aes"
+    )
+    dependsOn(compileJava)
+    dependsOn(processResources)
+}
