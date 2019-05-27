@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'scala'
 apply plugin: 'eclipse'
 
 repositories {
@@ -13,8 +14,12 @@ eclipse {
 }
 
 dependencies {
-    compile 'it.unibo.alchemist:alchemist:7.0.2'
-}
+    compile 'org.scala-lang:scala-library:2.12.2'
+
+    compile 'it.unibo.apice.scafiteam:scafi-core_2.12:0.3.2'
+
+    compile group: 'it.unibo.alchemist', name: 'alchemist', version: '8.0.0-beta+0sb.6f040'
+    compile group: 'it.unibo.alchemist', name: 'alchemist-incarnation-scafi', version: '8.0.0-beta+0sb.6f040'}
 
 task testSharedTimer(type: JavaExec){
     classpath 'src/main/resources'
@@ -26,4 +31,9 @@ task testSharedTimer(type: JavaExec){
     )
     dependsOn(compileJava)
     dependsOn(processResources)
+}
+
+compileJava   {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
 }
