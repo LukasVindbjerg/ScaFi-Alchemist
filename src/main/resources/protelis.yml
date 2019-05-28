@@ -1,33 +1,30 @@
-incarnation: scafi
+incarnation: protelis
 
 seeds:
   scenario: 12345
   simulation: 12345
 
 network-model:
-  type: ConnectWithinDistance
+  type: EuclideanDistance
   parameters: [1]
 
 pools:
-  - pool1: &contents
-    - molecule: target
-      concentration: "List(0.0,0.0)"
-  - pool2: &program
+  - pool1: &program
     - time-distribution:
         type: RandomDiracComb
         parameters: [1, 2]
       type: Event
       actions:
-        - type: RunScafiProgram
+        - type: RunProtelisProgram
           parameters: [prova, 2]
-    #  - program: send # not supported in scafi
-  - pool3: &vibrate
+    - program: send
+  - pool2: &vibrate
     - time-distribution: 5
       type: Event
       actions:
         - type: BrownianMove
           parameters: [0.03]
-  - pool4: &move
+  - pool3: &move
     - time-distribution: 5
       type: Event
       actions:
@@ -38,20 +35,17 @@ displacements:
   - in:
       type: Point
       parameters: [0,0]
-    contents: *contents
     programs:
       - *program
   - in:
       type: Circle
       parameters: [50, 0, 0, 2]
-    contents: *contents
     programs:
       - *program
       - *vibrate
   - in:
       type: Rectangle
       parameters: [100, -3, -3, 6, 6]
-    contents: *contents
     programs:
       - *program
       - *move
