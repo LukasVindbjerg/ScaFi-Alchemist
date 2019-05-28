@@ -8,3 +8,8 @@ TRASH/
 .DS_Store
 /build/
 example.zip
+.cache-main
+.classpath
+.project
+.settings/
+
