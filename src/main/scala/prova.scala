@@ -27,7 +27,7 @@ class prova extends AggregateProgram with StandardSensors with ScafiAlchemistSup
     0
   }
 
-  def gradient(isSource: Boolean, metric: => Double): Unit = {
+  def gradient(isSource: Boolean, metric: => Double): Double = {
     rep(Double.PositiveInfinity) { distance =>
       mux(isSource){ 0.0 }{ minHood{ nbr(distance) + metric } }
     }
