@@ -10,7 +10,8 @@
 
 3)	Installa l'editor integrato IntelliJ (versione Community JBR 8):
 	[jetbrains.com/idea/download](https://www.jetbrains.com/idea/download)
-	Durante l'installazione, seleziona il plugin per il supporto a Scala.
+
+Durante l'installazione, seleziona il plugin per il supporto a Scala.
 
 4)	Installa l'editor integrato IntelliJ (versione Community JBR 8):
 	[jetbrains.com/idea/download](https://www.jetbrains.com/idea/download)
@@ -63,8 +64,10 @@ per calcolare in ogni device le seguenti cose.
 *	Nei primi esercizi, ragionate dove usare `nbr` ("guardo i vicini") e `rep` ("guardo il passato").
 
 *	Per muovere un device, bisogna memorizzare una posizione `List(x,y)` nella molecola `target`:
-	``node.put("target", ...);``
-	Sostituite la porzione di codice che ora si occupa del movimento con quanto richiesto.
+
+``node.put("target", ...);``
+
+Sostituite la porzione di codice che ora si occupa del movimento con quanto richiesto.
 
 *	Si può ottenere la posizione corrente di un device tramite il metodo `getCoordinates()`.
 
