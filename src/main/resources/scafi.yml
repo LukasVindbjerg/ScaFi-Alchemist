@@ -29,26 +29,22 @@ pools:
       actions:
         - type: MoveToTarget
           parameters: [target, 0.1]
-  - pool4: &contents
 
 displacements:
   - in:
       type: Point
       parameters: [0,0]
-    contents: *contents
     programs:
       - *program
   - in:
       type: Circle
       parameters: [50, 0, 0, 2]
-    contents: *contents
     programs:
       - *program
       - *vibrate
   - in:
       type: Rectangle
       parameters: [100, -3, -3, 6, 6]
-    contents: *contents
     programs:
       - *program
       - *move

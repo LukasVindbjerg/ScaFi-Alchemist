@@ -5,7 +5,7 @@ seeds:
   simulation: 12345
 
 network-model:
-  type: EuclideanDistance
+  type: ConnectWithinDistance
   parameters: [1]
 
 pools:
