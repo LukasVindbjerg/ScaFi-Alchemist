@@ -24,9 +24,11 @@
 	(per qualunque `x`) e poi premere `OK`. Attendi che lo scaricamento termini e poi premi ancora `OK`.
 
 7)	Esegui il progetto di esempio per accertarti che tutto abbia funzionato. Clicca su `Add Configuration > + > Application` e poi imposta:
+
 	* Main class: `it.unibo.alchemist.Alchemist`
 	* Program arguments: `-g src/main/resources/prova.aes -y src/main/resources/scafi.yml`
 	* Use classpath of module: `Alchemist_Example_main`
+    
 	Premi quindi `OK` e poi il tasto play verde. Dopo qualche secondo si aprirà l'interfaccia di Alchemist,
 	e potrai premere la lettera `P` per avviare e fermare la simulazione.
 
