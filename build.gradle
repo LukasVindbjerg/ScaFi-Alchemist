@@ -21,12 +21,24 @@ dependencies {
     compile group: 'it.unibo.alchemist', name: 'alchemist', version: '8.0.0-beta+0sb.6f040'
     compile group: 'it.unibo.alchemist', name: 'alchemist-incarnation-scafi', version: '8.0.0-beta+0sb.6f040'}
 
-task testSharedTimer(type: JavaExec){
+task runScafi(type: JavaExec){
     classpath 'src/main/resources'
     classpath sourceSets.main.runtimeClasspath
     main = 'it.unibo.alchemist.Alchemist'
     args(
-        "-y", "src/main/resources/prova.yml",
+        "-y", "src/main/resources/scafi.yml",
+        "-g", "src/main/resources/prova.aes"
+    )
+    dependsOn(compileJava)
+    dependsOn(processResources)
+}
+
+task runProtelis(type: JavaExec){
+    classpath 'src/main/resources'
+    classpath sourceSets.main.runtimeClasspath
+    main = 'it.unibo.alchemist.Alchemist'
+    args(
+        "-y", "src/main/resources/protelis.yml",
         "-g", "src/main/resources/prova.aes"
     )
     dependsOn(compileJava)
@@ -38,7 +50,7 @@ compileJava   {
     targetCompatibility = '1.8'
 }
 
-tasks.withType(ScalaCompile.getClass()){
+compileScala {
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
 }
