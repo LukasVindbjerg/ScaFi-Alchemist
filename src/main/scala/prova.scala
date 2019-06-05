@@ -1,12 +1,14 @@
-import it.unibo.alchemist.model.implementations.positions.LatLongPosition
 import it.unibo.alchemist.model.scafi.ScafiIncarnationForAlchemist._
 
-import scala.util.Try
+class prova extends AggregateProgram with FieldUtils with StandardSensors with ScafiAlchemistSupport {
 
-class prova extends AggregateProgram with StandardSensors with ScafiAlchemistSupport {
+  // Conta i round che passano
+  def count() : Int = {
+    rep(0) { n => n+1 }
+  }
 
   // Vale sempre il primo valore mai assunto dall'argomento.
-  def constant[T](value: => T) : T = {
+  def constant[T](value: => T): T = {
     rep(value) { old => old }
   }
 
@@ -16,7 +18,7 @@ class prova extends AggregateProgram with StandardSensors with ScafiAlchemistSup
   // returns:  la lunghezza del cammino minimo nella rete verso una sorgente
   def gradient(isSource: Boolean, metric: => Double): Double = {
     rep(Double.PositiveInfinity) { distance =>
-      mux(isSource){ 0.0 }{ minHood{ nbr(distance) + metric } }
+      mux(isSource){ 0.0 }{ minHood{ nbr{distance} + metric } }
     }
   }
 
@@ -36,18 +38,43 @@ class prova extends AggregateProgram with StandardSensors with ScafiAlchemistSup
     node.put("timeToGo", timeToGo)
 
     // determino un luogo in cui muovermi, se e' il momento di farlo
-    if(timestamp() < timeToGo){
+    branch(timestamp() < timeToGo){
       // non e' ancora ora, e non faccio nulla
-    } else {
+    } {
       // scelgo un obiettivo a caso tra [-4,-2] e [4,2]
       val target = constant(List(8*nextRandom()-4, 4*nextRandom()-2))
       node.put("target", target)
     }
-    node.put("cose", getCoordinates())
 
     0
   }
 
+  // Crea una coppia
+  def pair[A,B](x : A, y : B) : Tuple2[A,B] = {
+    Tuple2(x,y)
+  }
+
+  // Primo elemento di una coppia
+  def fst[A,B](t : Tuple2[A,B]) : A = {
+    t._1
+  }
+
+  // Secondo elemento di una coppia
+  def snd[A,B](t : Tuple2[A,B]) : B = {
+    t._2
+  }
+
+  // Massimo tra due elementi
+  def max[T](x : T, y : T)(implicit ord: Ordering[T]) : T = {
+    ord.max(x, y)
+  }
+
+  // Somma di un campo di numeri
+  def sumHood[T](x : => T)(implicit numEv: Numeric[T]) : T = {
+    includingSelf.sumHood(x)
+  }
+
+  // Coordinate correnti come lista di due Double
   def getCoordinates(): List[Double] = {
     alchemistEnvironment.getPosition(alchemistEnvironment.getNodeByID(mid)).getCartesianCoordinates.toList
   }
