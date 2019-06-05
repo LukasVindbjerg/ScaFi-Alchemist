@@ -31,6 +31,8 @@ Durante l'installazione, seleziona il plugin per il supporto a Scala.
 * Program arguments: `-g src/main/resources/prova.aes -y src/main/resources/scafi.yml`
 
 * Use classpath of module: `Alchemist_Example_main`
+
+* Shorten command line: `JAR manifest` 
     
 Premi quindi `OK` e poi il tasto play verde. Dopo qualche secondo si aprirà l'interfaccia di Alchemist,
 e potrai premere la lettera `P` per avviare e fermare la simulazione.
