@@ -1,3 +1,8 @@
+plugins {
+    // solves the problem with long classpath using JAR instead of classpath on command line
+    id "ua.eshepelyuk.ManifestClasspath" version "1.0.0"
+}
+
 apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'eclipse'
@@ -27,7 +32,7 @@ task runScafi(type: JavaExec){
     main = 'it.unibo.alchemist.Alchemist'
     args(
         "-y", "src/main/resources/scafi.yml",
-        "-g", "src/main/resources/prova.aes"
+        "-g", "src/main/resources/example.aes"
     )
     dependsOn(compileJava)
     dependsOn(processResources)
@@ -39,7 +44,7 @@ task runProtelis(type: JavaExec){
     main = 'it.unibo.alchemist.Alchemist'
     args(
         "-y", "src/main/resources/protelis.yml",
-        "-g", "src/main/resources/prova.aes"
+        "-g", "src/main/resources/example.aes"
     )
     dependsOn(compileJava)
     dependsOn(processResources)

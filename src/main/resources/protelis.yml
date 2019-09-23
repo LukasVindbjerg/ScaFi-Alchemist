@@ -16,7 +16,7 @@ pools:
       type: Event
       actions:
         - type: RunProtelisProgram
-          parameters: [prova, 2]
+          parameters: [example, 2]
     - program: send
   - pool2: &vibrate
     - time-distribution: 5
