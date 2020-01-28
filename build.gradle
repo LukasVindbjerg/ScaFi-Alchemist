@@ -1,3 +1,8 @@
+plugins {
+    // solves the problem with long classpath using JAR instead of classpath on command line
+    id "ua.eshepelyuk.ManifestClasspath" version "1.0.0"
+}
+
 apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'eclipse'
