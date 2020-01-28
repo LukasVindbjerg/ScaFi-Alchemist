@@ -16,7 +16,7 @@ pools:
       type: Event
       actions:
         - type: RunScafiProgram
-          parameters: [prova.prova, 2]
+          parameters: [example.example, 2]
     - program: send
   - pool2: &vibrate
     - time-distribution: 5
@@ -30,37 +30,30 @@ pools:
       actions:
         - type: MoveToTarget
           parameters: [target, 0.1]
+  - pool4: &content
+    - molecule: abf
+      concentration: 0
+    - molecule: target
+      concentration: 0
 
 displacements:
   - in:
       type: Point
       parameters: [0,0]
-    contents:
-      - molecule: gradient
-        concentration: 0
-      - molecule: target
-        concentration: 0
+    contents: *content
     programs:
       - *program
   - in:
       type: Circle
       parameters: [50, 0, 0, 2]
-    contents:
-      - molecule: gradient
-        concentration: 0
-      - molecule: target
-        concentration: 0
+    contents: *content
     programs:
       - *program
       - *vibrate
   - in:
       type: Rectangle
       parameters: [100, -3, -3, 6, 6]
-    contents:
-      - molecule: gradient
-        concentration: 0
-      - molecule: target
-        concentration: 0
+    contents: *content
     programs:
       - *program
       - *move

@@ -15,11 +15,10 @@ eclipse {
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.12.2'
-
     compile 'it.unibo.apice.scafiteam:scafi-core_2.12:0.3.2'
-
     compile group: 'it.unibo.alchemist', name: 'alchemist', version: '9.3.0'
-    compile group: 'it.unibo.alchemist', name: 'alchemist-incarnation-scafi', version: '9.3.0'}
+    compile group: 'it.unibo.alchemist', name: 'alchemist-incarnation-scafi', version: '9.3.0'
+}
 
 task runScafi(type: JavaExec){
     classpath 'src/main/resources'
@@ -27,7 +26,7 @@ task runScafi(type: JavaExec){
     main = 'it.unibo.alchemist.Alchemist'
     args(
         "-y", "src/main/resources/scafi.yml",
-        "-g", "src/main/resources/prova.aes"
+        "-g", "src/main/resources/example.aes"
     )
     dependsOn(compileJava)
     dependsOn(processResources)
@@ -39,7 +38,7 @@ task runProtelis(type: JavaExec){
     main = 'it.unibo.alchemist.Alchemist'
     args(
         "-y", "src/main/resources/protelis.yml",
-        "-g", "src/main/resources/prova.aes"
+        "-g", "src/main/resources/example.aes"
     )
     dependsOn(compileJava)
     dependsOn(processResources)

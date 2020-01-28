@@ -1,0 +1,93 @@
+module example
+
+
+// builds a pair
+public def pair(x, y) {
+    [x,y]
+}
+
+
+// first element of a pair
+public def fst(t) {
+    t.get(0)
+}
+
+
+// second element of a pair
+public def snd(t) {
+    t.get(1)
+}
+
+
+// device coordinates
+public def getCoordinates() {
+    self.getCoordinates()
+}
+
+
+// counts elapsed rounds
+public def elapsed() {
+    rep(n <- 0) { n+1 }
+}
+
+
+// it preserves the value passed in the first round across following rounds
+public def constant(value) {
+    rep (old <- value) { old }
+}
+
+
+// computes approximated distances (ABF algorithm).
+// isSource: whether the current device is a source
+// metric:   function returning distances to neighbours
+// returns:  length of the shortest path towards a source
+public def ABF(isSource, metric) {
+	// distance starts from infinity
+	rep (distance <- POSITIVE_INFINITY) {
+		mux (isSource) {
+			// sources have distance zero
+			0
+		} else {
+			// others have the minimum across neighbours of their distance to a source plus the relative distance
+			minHood(nbr(distance) + metric())
+		}
+	}
+}
+
+
+public def main() {
+    env.put("language", "protelis");
+
+
+    // source is node 0 (standing in the middle)
+    let sourceID = 0;
+    let deviceID = self.getDeviceUID().getId();
+    let isSource = (deviceID == sourceID);
+
+
+    // export correct and estimated distances into the simulator
+    env.put("distance", self.distanceTo(sourceID));   // exact euclidean distance
+    env.put("abf", ABF(isSource, {self.nbrRange()})); // shortest-path estimated distance
+
+
+    // choose a random time between 0 and 200 in which to start moving
+    let timeToGo = constant(200*self.nextRandomDouble());
+    env.put("timeToGo", timeToGo); // memorizing it
+
+
+    // choose a place where to move, if it's time to do it
+    if (self.getCurrentTime() < timeToGo) {
+        // not time yet, doing nothing
+        0
+    } else {
+        // select a random target between [-4,-2] and [4,2]
+        let target = constant([8*self.nextRandomDouble()-4, 4*self.nextRandomDouble()-2]);
+        env.put("target", target);
+        0
+    };
+    
+    
+    // insert your code here!
+}
+
+main()
