@@ -1,8 +1,38 @@
 module prova
 
 
+// Crea una coppia
+public def pair(x, y) {
+    [x,y]
+}
+
+
+// Primo elemento di una coppia
+public def fst(t) {
+    t.get(0)
+}
+
+
+// Secondo elemento di una coppia
+public def snd(t) {
+    t.get(1)
+}
+
+
+// Coordinate del dispositivo
+public def getCoordinates() {
+    self.getCoordinates()
+}
+
+
+// Conta i round che passano
+public def count() {
+    rep(n <- 0) { n+1 }
+}
+
+
 // Vale sempre il primo valore mai assunto dall'argomento.
-def constant(value) {
+public def constant(value) {
     rep (old <- value) { old }
 }
 
@@ -11,21 +41,21 @@ def constant(value) {
 // isSource: se il device corrente e' una sorgente
 // metric:   funzione che calcola la distanza dispetto ai vicini del device corrente
 // returns:  la lunghezza del cammino minimo nella rete verso una sorgente
-def gradient(isSource, metric) {
+public def gradient(isSource, metric) {
 	// inizializzo la distanza a infinito
-	rep (distance <- Infinity) {
+	rep (distance <- POSITIVE_INFINITY) {
 		mux (isSource) {
 			// le sorgenti hanno distanza 0
 			0
 		} else {
 			// gli altri il minimo dei valori dei vicini sommati alla loro distanza relativa
-			minHood(nbr(distance) + metric.apply())
+			minHood(nbr(distance) + metric())
 		}
 	}
 }
 
 
-def main() {
+public def main() {
     env.put("language", "protelis");
 
 
@@ -36,8 +66,8 @@ def main() {
 
 
     // salvo la stima di distanza e quella esatta
-    env.put("distance", self.distanceTo(sourceID));                   // distanza euclidea esatta
-    env.put("gradient", gradient(isSource, () -> {self.nbrRange()})); // distanza tramite gradiente
+    env.put("distance", self.distanceTo(sourceID));             // distanza euclidea esatta
+    env.put("gradient", gradient(isSource, {self.nbrRange()})); // stima tramite gradiente
 
 
     // determino un tempo in cui iniziare a muovermi a caso tra 0 e 200
@@ -55,6 +85,9 @@ def main() {
         env.put("target", target);
         0
     };
+    
+    
+    // insert your code here
 }
 
 main()
