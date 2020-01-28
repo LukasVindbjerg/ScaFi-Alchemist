@@ -2,46 +2,33 @@ module example
 
 
 // builds a pair
-public def pair(x, y) {
-    [x,y]
-}
-
+public def pair(x, y) = [x,y]
 
 // first element of a pair
-public def fst(t) {
-    t.get(0)
-}
-
+public def fst(t) = t.get(0)
 
 // second element of a pair
-public def snd(t) {
-    t.get(1)
-}
-
+public def snd(t) = t.get(1)
 
 // device coordinates
-public def getCoordinates() {
-    self.getCoordinates()
-}
+public def getCoordinates() = self.getCoordinates()
 
 
 // counts elapsed rounds
-public def elapsed() {
+public def elapsed() =
     rep(n <- 0) { n+1 }
-}
 
 
 // it preserves the value passed in the first round across following rounds
-public def constant(value) {
+public def constant(value) =
     rep (old <- value) { old }
-}
 
 
 // computes approximated distances (ABF algorithm).
 // isSource: whether the current device is a source
 // metric:   function returning distances to neighbours
 // returns:  length of the shortest path towards a source
-public def ABF(isSource, metric) {
+public def ABF(isSource, metric) =
 	// distance starts from infinity
 	rep (distance <- POSITIVE_INFINITY) {
 		mux (isSource) {
@@ -49,10 +36,9 @@ public def ABF(isSource, metric) {
 			0
 		} else {
 			// others have the minimum across neighbours of their distance to a source plus the relative distance
-			minHood(nbr(distance) + metric())
+			foldMin(POSITIVE_INFINITY, nbr(distance) + metric())
 		}
 	}
-}
 
 
 public def main() {
