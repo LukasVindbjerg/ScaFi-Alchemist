@@ -1,78 +1,61 @@
-# Esercitazione su Alchemist
+# Alchemist Simulation Basics
 
-## Installazione e preparazione
+## Setup
 
-1)	Scarica il progetto di esempio, disponibile al seguente indirizzo:
-	[bitbucket.org/gaudrito/alchemist-example](https://bitbucket.org/gaudrito/alchemist-example)
-
-2)	Installa la virtual machine Java SE 8 JDK:
+1)	Install the virtual machine Java SE 11 JDK:
 	[oracle.com/technetwork/java/javase/downloads](http://oracle.com/technetwork/java/javase/downloads)
 
-3)	Installa l'editor integrato IntelliJ (versione Community JBR 8):
+2)	Install the Eclipse or IntelliJ IDE:
+	[eclipse.org/downloads](https://eclipse.org/downloads)
 	[jetbrains.com/idea/download](https://www.jetbrains.com/idea/download)
+	Eclipse has better support for Protelis, while IntelliJ has better support for ScaFi.
 
-Durante l'installazione, seleziona il plugin per il supporto a Scala.
+3)	Install a YAML support plugin of your choice.
 
-4)	Installa l'editor integrato IntelliJ (versione Community JBR 8):
-	[jetbrains.com/idea/download](https://www.jetbrains.com/idea/download)
+4)	Install the Protelis plugin from `Help > Eclipse Marketplace` if you plan to use Protelis on Eclipse (not available for IntelliJ).
 
-5)	Apri IntelliJ e clicca su `File > Open`. Seleziona il file `build.gradle` presente nella cartella con il progetto di esempio scaricato.
-	Clicca sul pulsante `Open as Project` e poi compila il form scegliendo "explicit module groups" e "Gradle 'wrapper' task configuration".
+5)	Install a Scala support plugin if you plan to use ScaFi.
 
-6)	Apri il file `src/main/prova.scala`. Comparirà un banner giallo in alto, su cui puoi cliccare `Setup Scala SDK`.
-	Se non comparisse, cerca la voce di menu `File > Project Structure > Global Libraries`.
-	Compariranno poi delle finestre in cui potrai cliccare `Create > Download`, selezionare una versione `2.12.x`
-	(per qualunque `x`) e poi premere `OK`. Attendi che lo scaricamento termini e poi premi ancora `OK`.
+6)	Download the sample project, available at:
+	[bitbucket.org/gaudrito/alchemist-example](https://bitbucket.org/gaudrito/alchemist-example)
 
-7)	Esegui il progetto di esempio per accertarti che tutto abbia funzionato. Clicca su `Add Configuration > + > Application` e poi imposta:
+6)    Import the downloaded folder as a Gradle project.
 
-* Main class: `it.unibo.alchemist.Alchemist`
+See `README.pdf` for further details.
 
-* Program arguments: `-g src/main/resources/prova.aes -y src/main/resources/scafi.yml`
+## The sample project
 
-* Use classpath of module: `Alchemist_Example_main`
+See `README.pdf` for further details.
 
-* Shorten command line: `JAR manifest` 
-    
-Premi quindi `OK` e poi il tasto play verde. Dopo qualche secondo si aprirà l'interfaccia di Alchemist,
-e potrai premere la lettera `P` per avviare e fermare la simulazione.
+## Esercises
 
-Vedi il file `README.pdf` per ulteriori dettagli sul processo di preparazione.
+Edit the file `example.pt` or `example.scala`, incrementally, in order to compute the following in every device.
 
-## Il progetto di esempio
+1)	The number of neighbour devices.
 
-Vedi il file `README.pdf` per ulteriori dettagli sul progetto di esempio.
+2)	The maximum number of neighbour devices ever witnessed by the current device.
 
-## Esercizi proposti
+3)	The maximum number of neighbour devices ever witnessed by any device in the network.
 
-Modificate il file `prova.pt` del progetto "Alchemist Example", incrementalmente,
-per calcolare in ogni device le seguenti cose.
+4)	Move towards the neighbour with the lowest number of neighbours.
 
-1)	il numero di device vicini
+5)	Move away from the neighbour with the highest number of neighbours.
 
-2)	il massimo numero di vicini che il device corrente ha mai avuto
+6)	Move as if the device was attracted by the neighbour with the lowest number of neighbours,
+        and repulsed by the neighbour with the highest number of neighbours.
 
-3)	il massimo numero di vicini che un qualunque device della rete ha mai avuto
+7)	Move as if the device was repulsed by every neighbour, and by the four walls of the rectangular box between points `[-4,-3]` and `[4,3]`.
 
-4)	muoversi verso il vicino che ha meno vicini
+### Hints
 
-5)	muoversi lontano dal vicino che ha più vicini
+*	In the first few exercises, start by reasoning on when/where to use `nbr` (“collecting from neighbours”) and `rep` (“collecting from the past”).
 
-6)	combinare gli ultimi due punti: ogni device è attratto dal vicino con meno vicini,
-	e respinto dal vicino con più vicini.
+*	In order to move a device, you need to store a coordinate in the `target` variable of the simulator, with `env.put("target", ...)` in Protelis, or `node.put("target", ...)` in ScaFi. Part of `example.*` is already handling this, so you can just edit that part.
 
-### Suggerimenti
+*	You can use the defined function `getCoordinates()` to get the position of the current device. Coordinates can be composed as physical vectors in Protelis: `[1,3] + [2,-1] == [3,2]`, `[2,4] * 0.5 == [1,2]`. Similar operators are also defined in `example.scala`.
 
-*	Nei primi esercizi, ragionate dove usare `nbr` ("guardo i vicini") e `rep` ("guardo il passato").
+*	In the last few exercises, you can model attraction/repulsion using the classical inverse square law. More precisely, if `v` is the vector between two objects, the resulting force is `v / |v|` where `|v| = sqrt(v_x^2 + v_y^2)`.
 
-*	Per muovere un device, bisogna memorizzare una posizione `List(x,y)` nella molecola `target`:
+## Links
 
-``node.put("target", ...);``
-
-Sostituite la porzione di codice che ora si occupa del movimento con quanto richiesto.
-
-*	Si può ottenere la posizione corrente di un device tramite il metodo `getCoordinates()`.
-
-## Risorse utili
-
-Vedi il file `README.pdf` per link a ulteriori risorse.
+See `README.pdf` for further links.
