@@ -101,14 +101,14 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
   }
 
   // pointwise operations on lists
-  implicit class PointwiseDoubleList(lst: Iterable[Double]){
-      def +(v: Double): Iterable[Double] = lst.map(_+v)
-      def +(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1+v._2).toList
-      def -(v: Double): Iterable[Double] = lst.map(_-v)
-      def -(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1-v._2).toList
-      def *(v: Double): Iterable[Double] = lst.map(_*v)
-      def *(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1*v._2).toList
-      def /(v: Double): Iterable[Double] = lst.map(_/v)
-      def /(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1/v._2).toList
+  implicit class PointwiseDoubleList(lst: List[Double]){
+      def +(v: Double): List[Double] = lst.map(_+v)
+      def +(other: List[Double]): List[Double] = lst.zip(other).map(v => v._1+v._2).toList
+      def -(v: Double): List[Double] = lst.map(_-v)
+      def -(other: List[Double]): List[Double] = lst.zip(other).map(v => v._1-v._2).toList
+      def *(v: Double): List[Double] = lst.map(_*v)
+      def *(other: List[Double]): List[Double] = lst.zip(other).map(v => v._1*v._2).toList
+      def /(v: Double): List[Double] = lst.map(_/v)
+      def /(other: List[Double]): List[Double] = lst.zip(other).map(v => v._1/v._2).toList
   }
 }
