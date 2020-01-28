@@ -2,24 +2,32 @@
 
 ## Setup
 
-1)	Install the virtual machine Java SE 11 JDK:
-	[oracle.com/technetwork/java/javase/downloads](http://oracle.com/technetwork/java/javase/downloads)
+1)	Install the virtual machine [Java SE 11 JDK](http://oracle.com/technetwork/java/javase/downloads).
 
-2)	Install the Eclipse or IntelliJ IDE:
-	[eclipse.org/downloads](https://eclipse.org/downloads)
-	[jetbrains.com/idea/download](https://www.jetbrains.com/idea/download)
-	Eclipse has better support for Protelis, while IntelliJ has better support for ScaFi.
+2)	Install the [Eclipse](https://eclipse.org/downloads)  or [IntelliJ](https://www.jetbrains.com/idea/download) IDE.
+	Eclipse has better support for Protelis (buggy on ScaFi), while IntelliJ has better support for ScaFi (no Protelis syntax highlighting).
 
 3)	Install a YAML support plugin of your choice.
 
-4)	Install the Protelis plugin from `Help > Eclipse Marketplace` if you plan to use Protelis on Eclipse (not available for IntelliJ).
+4)	If you plan to use Protelis on Eclipse, install the *Protelis* plugin from `Help > Eclipse Marketplace`
+	for syntax highlighting (not available for IntelliJ).
 
-5)	Install a Scala support plugin if you plan to use ScaFi.
+5)	If you plan to use ScaFi on Eclipse, install the *Scala IDE* available from `Help > Eclipse Marketplace`.
+	For using ScaFi on IntelliJ, click on `File > Project Structure > Global Libraries`.
+	In the window that will open, search for `Create > Download`, then select version 2.12.3 and press OK.
+	Wait for the download to end then press OK again.
 
-6)	Download the sample project, available at:
-	[bitbucket.org/gaudrito/alchemist-example](https://bitbucket.org/gaudrito/alchemist-example)
+6)	Download the [sample project](https://bitbucket.org/gaudrito/alchemist-example).
 
-6)    Import the downloaded folder as a Gradle project.
+7)	Import the downloaded folder as a Gradle project.
+	
+	**Eclipse**: click on `File > Import`, then select the type `Gradle > Gradle Project`.
+	Click on `Next` twice, then select the downloaded folder through `Browse` in the upper right corner.
+	Complete the procedure by clicking on `Finish`. If errors appear, you may also need to right-click
+	on the newly created project and then click on `Gradle > Refresh Gradle Project`.
+	
+	**IntelliJ**: click on `File > Open` then select the `build.gradle` file within the downloaded folder.
+	Click on `Open as Project` then compile the resulting form.
 
 See `README.pdf` for further details.
 
