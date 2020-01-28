@@ -25,6 +25,12 @@ dependencies {
     compile group: 'it.unibo.alchemist', name: 'alchemist-incarnation-scafi', version: '9.3.0'
 }
 
+sourceSets.getByName("main") {
+    resources {
+        srcDirs("src/main/protelis")
+    }
+}
+
 task runScafi(type: JavaExec){
     classpath 'src/main/resources'
     classpath sourceSets.main.runtimeClasspath
