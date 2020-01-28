@@ -100,39 +100,15 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
     includingSelf.sumHood(x)
   }
 
-  // pointwise product of lists
-  def *(x : Double, y : List[Double]) : List[Double] = {
-    y.map(_*x)
-  }
-  def *(x : List[Double], y : Double) : List[Double] = {
-    x.map(_*y)
-  }
-  def *(x : List[Double], y : List[Double]) : List[Double] = {
-    assert(x.length == y.length, "cannot multiply lists with different lengths")
-    (x,y).zipped.map(_*_)
-  }
-
-  // pointwise sum of lists
-  def +(x : Double, y : List[Double]) : List[Double] = {
-    y.map(_+x)
-  }
-  def +(x : List[Double], y : Double) : List[Double] = {
-    x.map(_+y)
-  }
-  def +(x : List[Double], y : List[Double]) : List[Double] = {
-    assert(x.length == y.length, "cannot add lists with different lengths")
-    (x,y).zipped.map(_+_)
-  }
-
-  // pointwise subtraction of lists
-  def -(x : List[Double]) : List[Double] = {
-    x.map(-_)
-  }
-  def -(x : List[Double], y : Double) : List[Double] = {
-    x.map(_-y)
-  }
-  def -(x : List[Double], y : List[Double]) : List[Double] = {
-    assert(x.length == y.length, "cannot subtract lists with different lengths")
-    (x,y).zipped.map(_-_)
+  // pointwise operations on lists
+  implicit class PointwiseDoubleList(lst: Iterable[Double]){
+      def +(v: Double): Iterable[Double] = lst.map(_+v)
+      def +(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1+v._2).toList
+      def -(v: Double): Iterable[Double] = lst.map(_-v)
+      def -(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1-v._2).toList
+      def *(v: Double): Iterable[Double] = lst.map(_*v)
+      def *(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1*v._2).toList
+      def /(v: Double): Iterable[Double] = lst.map(_/v)
+      def /(other: Iterable[Double]): Iterable[Double] = lst.zip(other).map(v => v._1/v._2).toList
   }
 }
