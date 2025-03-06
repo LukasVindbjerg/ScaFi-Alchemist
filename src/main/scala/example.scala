@@ -1,8 +1,12 @@
 package example
 
 import it.unibo.alchemist.model.scafi.ScafiIncarnationForAlchemist._
+// import it.unibo.scafi.incarnations.basicabstractincarnation
 import scala.math._
 
+// object myincarnation extends basicabstractincarnation
+
+// import example.myincarnation._
 
 class example extends AggregateProgram with FieldUtils with StandardSensors with ScafiAlchemistSupport {
 
@@ -60,6 +64,17 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
     }
   }
 
+  // Get neighbours by ID
+  def getNbrs() : Int = {
+    rep(0) {nbrs =>
+      foldhoodPlus(Set.empty[ID])(_++_)(Set(nbr(mid()))).size
+    }
+  }
+
+  def getNbrCount() : Int = {
+    // Just go through each nbr and increment counter
+    foldhoodPlus(0)(_ + _)(1)
+  }
   
   override def main(): Any = {
     node.put("language", "scafi")
@@ -85,7 +100,7 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
       node.put("target", target)
     }
 
-
+    node.put("Nbrs", getNbrCount())
     // insert your code here!
   }
 
