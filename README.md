@@ -1,4 +1,4 @@
-Clone of git clone https://bitbucket.org/gaudrito/alchemist-example.git
+Clone of https://bitbucket.org/gaudrito/alchemist-example.git
 Learning how to use Alchemist with ScaFi
 
 
