@@ -75,7 +75,28 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
     // Just go through each nbr and increment counter
     foldhoodPlus(0)(_ + _)(1)
   }
-  
+
+  def maxNbrsSeen() : Int = {
+    rep(0) { maxNbrCount =>
+      mux(getNbrCount() > maxNbrCount)(getNbrCount())(maxNbrCount)
+    }
+  }
+
+  def maxNbrsInNetwork(): Int = {
+    rep(0) { maxNbrInNetwork =>
+      Math.max(maxNbrsSeen(), foldhood(0)(Math.max)(nbr{maxNbrInNetwork}))
+    }
+  }
+
+  def mostLonelyNeighbor(): (ID, List[Double]) = {
+    foldhood(pair(mid(), getCoordinates()))
+            ((p1, p2) => if (nbr(getNbrCount()) < getNbrCount()) p1 else p2)
+            (pair(nbr(mid()), nbr(getCoordinates())))
+  }
+
+
+
+
   override def main(): Any = {
     node.put("language", "scafi")
 
@@ -100,8 +121,18 @@ class example extends AggregateProgram with FieldUtils with StandardSensors with
       node.put("target", target)
     }
 
-    node.put("Nbrs", getNbrCount())
+
     // insert your code here!
+    // E1: Get nbr count
+    node.put("Nbrs", getNbrCount())
+
+    // E2: Get max nbr count
+    node.put("Max Nbrs", maxNbrsSeen())
+
+    // E3: Total max nbrs seen in network:
+    node.put("GlobalMaxNbrs", maxNbrsInNetwork())
+
+    node.put("Lonliest Nbr", mostLonelyNeighbor())
   }
 
   
